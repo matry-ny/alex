@@ -4,4 +4,10 @@ services:
     build: ./docker/php
     container_name: alex_l01_app
     volumes:
-        - ./:/var/www
+      - ./:/var/www
+  apache:
+    build: './docker/httpd'
+    depends_on:
+      - app
+    ports:
+      - "80:80"
