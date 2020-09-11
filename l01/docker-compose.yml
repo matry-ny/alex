@@ -5,9 +5,24 @@ services:
     container_name: alex_l01_app
     volumes:
       - ./:/var/www
+    depends_on:
+      - db
   apache:
     build: './docker/httpd'
+    container_name: alex_l01_apache
     depends_on:
       - app
     ports:
       - "80:80"
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    container_name: alex_l01_mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: alex_db
+      MYSQL_USER: alex_user
+      MYSQL_PASSWORD: alex_pwd
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
