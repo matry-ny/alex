@@ -13,7 +13,7 @@ services:
     depends_on:
       - app
     ports:
-      - "80:80"
+      - "8090:80"
   db:
     image: mysql
     ports:
