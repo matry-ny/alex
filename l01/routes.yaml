@@ -1,0 +1,4 @@
+route1:
+  path:       /explorer/view
+  controller: \app\controllers\ExplorerController::actionView
+  methods:    GET|HEAD

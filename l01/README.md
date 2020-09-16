@@ -14,3 +14,10 @@ docker-compose run app composer install
 
 http://local-alex.com:8090/
 
+### STRUCTURE
+
+/explorer/view
+
+- app\controllers\ExplorerController
+    - actionView()
+
