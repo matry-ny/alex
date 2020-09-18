@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\library;
 
 /**
@@ -8,7 +10,12 @@ namespace app\library;
  */
 class Router
 {
-    public function __construct(string $address)
+    /**
+     * Router constructor.
+     * @param DispatcherAbstract $dispatcher
+     */
+    public function __construct(DispatcherAbstract $dispatcher)
     {
+        var_dump($dispatcher->getControllerPart(), $dispatcher->getActionPart());
     }
 }
