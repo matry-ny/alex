@@ -24,6 +24,10 @@ class ControllerAbstract
      */
     public function setControllerName(string $controllerName): self
     {
+        if ($this->controllerName) {
+            return $this;
+        }
+
         $this->controllerName = $controllerName;
         return $this;
     }
@@ -34,6 +38,10 @@ class ControllerAbstract
      */
     public function setActionName(string $actionName): self
     {
+        if ($this->actionName) {
+            return $this;
+        }
+
         $this->actionName = $actionName;
         return $this;
     }
