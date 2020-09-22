@@ -1,18 +1,15 @@
 <?php
 
-namespace app\controllers;
+namespace app\web\controllers;
+
+use app\library\ControllerAbstract;
 
 /**
  * Class ExplorerController
- * @package app\controllers
+ * @package app\web\controllers
  */
-class ExplorerController
+class ExplorerController extends ControllerAbstract
 {
-    public function __construct()
-    {
-        var_dump(123);
-    }
-
     public function actionView()
     {
         var_dump(__METHOD__);
