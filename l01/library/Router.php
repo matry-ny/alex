@@ -62,6 +62,8 @@ class Router
             throw new NotFoundException("Object of {$class} has incorrect instance");
         }
 
+        $object->setControllerName($controller);
+
         return $object;
     }
 
@@ -79,6 +81,8 @@ class Router
         if (!method_exists($controller, $method)) {
             throw new NotFoundException("Action {$action} is undefined");
         }
+
+        $controller->setActionName($action);
 
         return $method;
     }
