@@ -10,15 +10,23 @@ use app\exceptions\NotFoundException;
  */
 class Template
 {
-    /**
-     * ToDo: Move to config
-     */
-    private const VIEWS_DIR = __DIR__ . '/../views/';
-    private const LAYOUT = 'layouts/general';
-    private const EXT = '.php';
-
     public string $content = '';
     public array $params = [];
+
+    private string $viewsDir;
+    private string $layout;
+    private string $ext;
+
+    /**
+     * Template constructor.
+     * @param array $config
+     */
+    public function __construct(array $config)
+    {
+        $this->viewsDir = $config['viewsDir'] ?? __DIR__ . '/../views/';
+        $this->layout = $config['layout'] ?? 'layouts/general';
+        $this->ext = $config['extension'] ?? '.php';
+    }
 
     /**
      * @param string $view
@@ -33,7 +41,7 @@ class Template
         $template = $this->getTemplateRout($view);
         $this->content = $this->getTemplateContent($template);
 
-        $layout = $this->getTemplateRout(self::LAYOUT);
+        $layout = $this->getTemplateRout($this->layout);
         return $this->getTemplateContent($layout);
     }
 
@@ -55,11 +63,11 @@ class Template
      */
     private function getTemplateRout(string $view): string
     {
-        if (substr($view, -strlen(self::EXT)) !== self::EXT) {
-            $view .= self::EXT;
+        if (substr($view, -strlen($this->ext)) !== $this->ext) {
+            $view .= $this->ext;
         }
 
-        $rout = self::VIEWS_DIR . $view;
+        $rout = $this->viewsDir . $view;
         if (!file_exists($rout)) {
             throw new NotFoundException("Template {$view} is undefined");
         }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace app\library;
 
-use app\cli\library\Dispatcher as CliDispatcher;
+use app\exceptions\InvalidConfigException;
 use app\exceptions\NotFoundException;
 use app\helpers\Strings;
 
@@ -14,9 +14,6 @@ use app\helpers\Strings;
  */
 class Router
 {
-    private const CLI_NAMESPACE = 'app\\cli\\controllers\\';
-    private const WEB_NAMESPACE = 'app\\web\\controllers\\';
-
     private const CONTROLLER_SUFFIX = 'Controller';
 
     private DispatcherAbstract $dispatcher;
@@ -33,6 +30,7 @@ class Router
     /**
      * @return mixed
      * @throws NotFoundException
+     * @throws InvalidConfigException
      */
     public function run()
     {
@@ -45,11 +43,12 @@ class Router
     /**
      * @return ControllerAbstract
      * @throws NotFoundException
+     * @throws InvalidConfigException
      */
     private function getControllerObject(): ControllerAbstract
     {
         $controller = $this->dispatcher->getControllerPart();
-        $class = $this->getControllersNamespace();
+        $class = App::getInstance()->getConfig()->getControllerNamespace();
         $class .= Strings::camelize($controller);
         $class .= self::CONTROLLER_SUFFIX;
 
@@ -85,19 +84,5 @@ class Router
         $controller->setActionName($action);
 
         return $method;
-    }
-
-    /**
-     * @return string
-     *
-     * ToDo: Move to configuration file
-     */
-    private function getControllersNamespace(): string
-    {
-        if ($this->dispatcher instanceof CliDispatcher) {
-            return self::CLI_NAMESPACE;
-        }
-
-        return self::WEB_NAMESPACE;
     }
 }

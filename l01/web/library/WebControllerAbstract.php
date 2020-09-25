@@ -3,6 +3,7 @@
 namespace app\web\library;
 
 use app\exceptions\NotFoundException;
+use app\library\App;
 use app\library\ControllerAbstract;
 
 /**
@@ -21,7 +22,8 @@ class WebControllerAbstract extends ControllerAbstract
      */
     public function __construct()
     {
-        $this->view = new Template();
+        $templateConfig = App::getInstance()->getConfig()->getComponent('template');
+        $this->view = new Template($templateConfig);
     }
 
     /**
