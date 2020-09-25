@@ -11,12 +11,12 @@ class ControllerAbstract
     /**
      * @var string
      */
-    protected string $controllerName;
+    protected string $controllerName = '';
 
     /**
      * @var string
      */
-    protected string $actionName;
+    protected string $actionName = '';
 
     /**
      * @param string $controllerName

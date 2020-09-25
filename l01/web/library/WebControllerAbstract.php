@@ -2,6 +2,7 @@
 
 namespace app\web\library;
 
+use app\exceptions\NotFoundException;
 use app\library\ControllerAbstract;
 
 /**
@@ -34,10 +35,11 @@ class WebControllerAbstract extends ControllerAbstract
     /**
      * @param array $params
      * @return string
+     * @throws NotFoundException
      */
     public function render(array $params = []): string
     {
-        $view = "{$this->controllerName}/{$this->actionName}.php";
+        $view = "{$this->controllerName}/{$this->actionName}";
         return $this->getView()->render($view, $params);
     }
 }
